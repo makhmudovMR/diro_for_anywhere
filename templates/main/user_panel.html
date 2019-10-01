@@ -1,0 +1,35 @@
+{% extends 'base_contentapp.html' %}
+
+{% block title %}{{person.first_name}} {{person.last_name}}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <br>
+                <h4>Имя пользователя:</h4>
+                <p><i>{{person}}</i></p>
+            </div>
+            <div class="span6">
+                <div class="mycontent-left">
+                </div>
+            </div>
+            <div class="col-6">
+                <br>
+                <h4>Результаты тестов</h4>
+                <ul>
+                    {% if tests %}
+                        {% for item in tests %}
+                            <li>
+                                <a href="{% url 'main:test_result' id=item.id %}">{{item.title}}</a>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <small>Тут будут отображаться ваши результаты</small>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

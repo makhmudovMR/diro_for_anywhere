@@ -1,0 +1,25 @@
+{% extends 'base_contentapp.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Вход в систему{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <br>
+                <h2>Войти в систему</h2>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                </form>
+            </div>
+            <div class="col"></div>
+
+        </div>
+    </div>
+
+{% endblock %}

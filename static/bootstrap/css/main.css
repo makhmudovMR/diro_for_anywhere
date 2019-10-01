@@ -1,0 +1,12 @@
+body p{
+    font-size:13px;
+}
+
+.mycontent-left {
+  border-right: 1px dashed #333;
+}
+
+
+.main_link a {
+    font-size: 16px;
+}

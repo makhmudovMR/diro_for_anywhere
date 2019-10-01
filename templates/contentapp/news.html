@@ -1,0 +1,45 @@
+{% extends 'base_contentapp.html' %}
+
+{% block title %}Новости{% endblock %}
+{% block content %}
+    <div class="container">
+        <br>
+        <h1>Новости</h1>
+        <br>
+  <div class="row">
+    <div class="col-8">
+      {% for news in newses %}
+        <div>
+            <h4>{{news.title}}</h4>
+            <small>{{news.date}}</small>
+            <p>{{news.text|striptags|truncatewords:25}}</p>
+            <a href="{% url 'contentapp:news_detail' id=news.id %}" >Подробнее...</a>
+            <hr>
+        </div>
+        {% endfor %}
+        <div class="pagination" style="margin: auto">
+            <span class="step-links">
+                {% if newses.has_previous %}
+                    <a href="?page=1">&laquo; Первый</a>
+                    |
+                    <a href="?page={{ newses.previous_page_number }}">Прошедший</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ newses.number }} из {{ newses.paginator.num_pages }}
+                </span>
+
+                {% if newses.has_next %}
+                    <a href="?page={{ newses.next_page_number }}">Следующий</a>
+                    |
+                    <a href="?page={{ newses.paginator.num_pages }}">Последний &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <div class="col-4">
+      <!--TODO-->
+    </div>
+  </div>
+</div>
+{% endblock %}

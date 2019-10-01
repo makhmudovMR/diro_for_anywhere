@@ -1,0 +1,22 @@
+{% extends 'base_admin.html' %}
+
+
+{% block title %}Тесты{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <br>
+                {% for test in all_test %}
+                    <div class="">
+                        <a href="{% url 'main:user_test_result' id=test.id %}">{{test.title}}</a>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}

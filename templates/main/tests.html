@@ -1,0 +1,24 @@
+{% extends 'base_contentapp.html' %}
+
+{% block title %}Выберите тест{% endblock %}
+
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+            <br>
+          {% for item in tests %}
+                {% if item in done_test %}
+                    <a href="{% url 'main:test_result' id=item.id %}" class="btn btn-light">Результат:{{item}}</a>
+                    <hr>
+                {% else %}
+                    <a href="{% url 'main:questions' id=item.id %}" class="btn btn-light">{{item}}</a>
+                    <hr>
+                {% endif %}
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+{% endblock %}

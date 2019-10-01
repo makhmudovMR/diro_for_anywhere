@@ -1,0 +1,50 @@
+{% extends 'base_contentapp.html' %}
+
+{% block title %}Контрольно-измерительный материал по ЕГЭ{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <br>
+        <div class="row">
+            <div class="col">
+                <h2>Контрольно-измерительный материал по ЕГЭ</h2>
+                <p>Здесь можно скачать КИМ</p>
+                <hr>
+                {% if files %}
+                    {% for file in files %}
+                    <div>
+                        <h3>{{file.name}}</h3>
+                        <p>{{file.description}}</p>
+                        <a href="http://{{ request.get_host }}/media/{{file.file}}" class="" download>Скачать</a>
+                        <hr>
+                    </div>
+                   {% endfor %}
+
+                    <div class="pagination" >
+                        <span class="step-links">
+                            {% if files.has_previous %}
+                                <a href="?page=1">&laquo; Первый</a>
+                                |
+                                <a href="?page={{ files.previous_page_number }}">Прошедший</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Страница {{ files.number }} из {{ files.paginator.num_pages }}
+                            </span>
+
+                            {% if files.has_next %}
+                                <a href="?page={{ files.next_page_number }}">Следующий</a>
+                                |
+                                <a href="?page={{ files.paginator.num_pages }}">Последний &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                {% else %}
+                    <center><b>Нет файлов</b></center>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

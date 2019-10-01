@@ -1,0 +1,47 @@
+{% extends 'base_contentapp.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>Новости</h3>
+                <hr>
+                {% if newses %}
+                    {% for news in newses %}
+                    <div>
+                        <h5>{{news.title}}</h5>
+                        <div><small>{{news.date}}</small></div>
+                        <br>
+                        <div>{{news.text|striptags|truncatewords:25}}</div>
+                        <br>
+                        <a href="{% url 'contentapp:news_detail' id=news.id %}" >Подробнее...</a>
+                        <hr>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <center><b>Новостей нет</b></center>
+                {% endif %}
+            </div>
+            <div class="col">
+                <h3>Контрольно-измерительный материал по ЕГЭ</h3>
+                <hr>
+                {% if files %}
+                    {% for file in files %}
+                    <div>
+                        <h5>{{file.name}}</h5>
+                        <p>{{file.description}}</p>
+                        <a href="http://{{ request.get_host }}/media/{{file.file}}" download>Скачать</a>
+                        <hr>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <center><b>Нет Файлов</b></center>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

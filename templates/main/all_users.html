@@ -1,0 +1,21 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}Результаты всех пользователей{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <br>
+                {% for person in all_users %}
+                    <div class="">
+                        <a href="{% url 'main:users_tests' id=person.id  %}">{{ person.first_name}} {{ person.last_name }}</a>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}

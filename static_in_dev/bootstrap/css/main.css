@@ -1,0 +1,43 @@
+body p{
+    font-size:13px;
+}
+
+.mycontent-left {
+  border-right: 1px dashed #333;
+}
+
+
+.main_link a{
+    font-size: 12px;
+    color: #000 !important ;
+}
+
+.left_side{
+    //background: #2E64FE;
+    background-image: linear-gradient(to bottom right, #2E64FE,#A9F5F2);
+}
+
+.left_side a{
+    color: #fff;
+}
+
+.left_side a:hover{
+    color: #fff;
+    text-decoration: underline;
+}
+
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: #0099ff !important;
+}
+
+.grad {
+  background-image: linear-gradient(to bottom right, #A9F5F2, #2E64FE);
+}
+
+a {
+    color: #58ACFA;
+}
+
+a:hover{
+    color: #0174DF;
+}

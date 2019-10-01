@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Makhmudov Magomed Riadovich">
+
+    <title>{% block title %} {% endblock %}</title>
+
+    <!--<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">-->
+    <link href="{% static 'bootstrap/css/simplex.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/main.css' %}" rel="stylesheet">
+
+  </head>
+  <body>
+  <div class="grad">
+    <!-- Navigation -->
+    <div class="container">
+      <div class="row">
+        <div class="col" style="text-align: center">
+          <br>
+          <h2 style="color: #fff">ДАГЕСТАНСКИЙ ИНСТИТУТ РАЗВИТИЯ ОБРАЗОВАНИЯ</h2>
+          <h2 style="color: #fff">ЦЕНТР КАЧЕСТВА ОБРАЗОВАНИЯ</h2>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!--<a class="navbar-brand" href="#"><img src="/media/contentapp/logo/logo.png" width="30" height="30" alt="" style="margin-right:10px">РЦОИ РД</a>-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto main_link">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contentapp:home' %}">Главная <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'contentapp:news' %}">Новости</a>
+          </li>
+          <!--
+          <li class="nav-item ">
+            <a class="nav-link" href="#">Деятельность</a>
+          </li>
+          -->
+          <!--
+          <li class="nav-item ">
+            <a class="nav-link" href="#">Оценка качества образования</a>
+          </li>
+          -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="{% url 'main:test' %}">
+              Мониторинг образования региона
+            </a>
+            <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contentapp:files' %}">Архив</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto main_link">
+          {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'main:sign_in' %}">Войти</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'main:sign_up' %}">Зарегистрироваться</a>
+            </li>
+            {% else %}
+              <li class="nav-item">
+                 <a class="nav-link" href="{% url 'main:user_panel' %}">Панель пользователя: {{request.user.first_name}}</a>
+              </li>
+              <li class="nav-item">
+                 <a class="nav-link" href="{% url 'main:logout' %}">Выйти из системы</a>
+              </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="{% url 'contentapp:search_result' %}" method="get">
+          <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search" name="words">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+        </form>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-3 left_side" style="min-height:400px">
+          <br>
+          <nav class="nav flex-column">
+            <a class="nav-link " href="#">Информация о ЦОКО</a>
+            <a class="nav-link" href="#">Руководство</a>
+            <a class="nav-link" href="#">Структура</a>
+            <a class="nav-link" href="#">Конакты</a>
+            <!--<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+          </nav>
+        </div>
+        <div class="col-7">
+          <br>
+          {% block content %}
+
+          {% endblock %}
+        </div>
+          <div class="col-2">
+            <br>
+            {% if banners %}
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  {% for banner in banners %}
+                    {% if forloop.counter == 1 %}
+                    <div class="carousel-item active" >
+                    {% else %}
+                    <div class="carousel-item">
+                    {% endif %}
+                      <img class="d-block w-100" src="http://{{ request.get_host }}/media/{{banner.slide}}" >
+                    </div>
+                  {% endfor %}
+                </div>
+            </div>
+              {% endif %}
+              <hr>
+            {% if bannerlink %}
+                {% for banner in bannerlink %}
+                  <div>
+                    <div><small><b>{{banner.name}}</b></small></div>
+                    <br>
+                    <center><a href="{{banner.link}}" ><img src="http://{{ request.get_host }}/media/{{banner.image}}" style="width: 50%"></a></center>
+                  </div>
+                  <hr>
+                {% endfor %}
+              </div>
+             </div>
+            </div>
+          {% endif %}
+          </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="page-footer font-small blue pt-4">
+
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left">
+
+          <!-- Grid row -->
+          <div class="row">
+
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+          </div>
+          <!-- Grid row -->
+
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+          © 2019 Центр качества образования ДИРО
+        </div>
+        <!-- Copyright -->
+
+      </footer>
+      <!-- Footer -->
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'jquery/jquery.slim.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+      <script>
+        $('#carousel2').carousel({
+          interval: 3000
+        })
+      </script>
+  </body>
+
+</html>
